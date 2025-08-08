@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neethi.AI - How It Works</title>
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/how-it-works.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Desktop Navbar -->
+    <nav class="navbar desktop-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="img/logo.png" alt="Neethi.AI Logo" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+            </div>
+            <div class="nav-hamburger">
+                <i class="fas fa-bars hamburger-icon"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="history.html" class="mobile-nav-item">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+    </nav>
+
+    <!-- Slide-in Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <h3>Menu</h3>
+            <i class="fas fa-times close-drawer" id="closeDrawer"></i>
+        </div>
+        <div class="drawer-content">
+            <a href="#about" class="drawer-link">About Us</a>
+            <a href="how-it-works.html" class="drawer-link">How It Works</a>
+            <a href="privacy-policy.html" class="drawer-link">Privacy Policy</a>
+            <a href="#terms" class="drawer-link">Terms of Use</a>
+            <a href="#help" class="drawer-link">Get Help</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <h1 class="hero-title">How Neethi.AI Works ?</h1>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="steps-container">
+                    <!-- Step 1 -->
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 class="step-title">User sends a message</h3>
+                            <p class="step-description">This can be a news headline, WhatsApp forward, or social media post.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Neethi understands the language and meaning</h3>
+                            <p class="step-description">It works in any language, even regional ones like Telugu, Hindi, or Tamil.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 class="step-title">It searches trusted news sources</h3>
+                            <p class="step-description">Like PIB, The Hindu, NDTV, India Today, and regional news portals.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3 class="step-title">AI checks the facts</h3>
+                            <p class="step-description">Neethi compares the claim with real news and scores its truth.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3 class="step-title">You get a clear answer</h3>
+                            <p class="step-description">It tells you if the news is ✅ Real or ⚠️ Fake, along with the confidence level and source links.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="img/logo.png" alt="Neethi.AI Logo" class="footer-logo-img">
+            </div>
+            <div class="footer-links">
+                <a href="#about" class="footer-link">About Us</a>
+                <a href="how-it-works.html" class="footer-link">How It Works</a>
+                <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                <a href="#terms" class="footer-link">Terms of Use</a>
+                <a href="#help" class="footer-link">Get Help</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Neethi.AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/navbar.js"></script>
+</body>
+
+</html>
+

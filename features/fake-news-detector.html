@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neethi.AI - Fake News Detector</title>
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/fake-news-detector.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Desktop Navbar -->
+    <nav class="navbar desktop-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="img/logo.png" alt="Neethi.AI Logo" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+            </div>
+            <div class="nav-hamburger">
+                <i class="fas fa-bars hamburger-icon"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="history.html" class="mobile-nav-item">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+    </nav>
+
+    <!-- Slide-in Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <h3>Menu</h3>
+            <i class="fas fa-times close-drawer" id="closeDrawer"></i>
+        </div>
+        <div class="drawer-content">
+            <a href="#about" class="drawer-link">About Us</a>
+            <a href="how-it-works.html" class="drawer-link">How It Works</a>
+            <a href="privacy-policy.html" class="drawer-link">Privacy Policy</a>
+            <a href="#terms" class="drawer-link">Terms of Use</a>
+            <a href="#help" class="drawer-link">Get Help</a>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <h1 class="hero-title">Fake News Detector</h1>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>Enter the news in 1 Line</h2>
+                <textarea id="newsInput" placeholder="Describe the news in short"></textarea>
+                <div id="validationMessage" class="validation-message"></div>
+                <button id="detectButton">Detect News</button>
+                <div class="disclaimer">
+                    <p>Rarely our agent makes mistakes, submit to us.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pop-up for Detection -->
+    <div id="detectionPopup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Detecting the News...</h3>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+            <p>Please Wait...</p>
+        </div>
+    </div>
+
+    <!-- Login Pop-up -->
+    <div id="loginPopup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Login</h3>
+            <p>To know about the Result !</p>
+            <input type="text" id="userName" placeholder="Name">
+            <input type="text" id="mobileNumber" placeholder="Mobile Number">
+            <div id="loginError" class="error-message"></div>
+            <button id="submitLogin">Submit</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="img/logo.png" alt="Neethi.AI Logo" class="footer-logo-img">
+            </div>
+            <div class="footer-links">
+                <a href="#about" class="footer-link">About Us</a>
+                <a href="how-it-works.html" class="footer-link">How It Works</a>
+                <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                <a href="#terms" class="footer-link">Terms of Use</a>
+                <a href="#help" class="footer-link">Get Help</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Neethi.AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/navbar.js"></script>
+    <script src="scripts/fake-news-detector.js"></script>
+</body>
+
+</html>
