@@ -1,13 +1,42 @@
 /* Footer */
 .footer {
     background: var(--footer-gradient);
-    padding: 60px 20px 30px;
+    padding: 60px 20px 200px;
     text-align: center;
+    position: relative;
+    /* Added for pseudo-element positioning */
+    overflow: hidden;
+    /* Ensures watermark stays within bounds */
+}
+
+.footer::before {
+    content: "Neethi.AI";
+    /* Watermark text */
+    position: absolute;
+    top: 250px;
+    /* Adjust position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 15vw;
+    /* Large, responsive font size */
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.05);
+    /* Faint color */
+    pointer-events: none;
+    /* Allows interaction with elements below */
+    z-index: 0;
+    /* Ensures it's in the background */
+    white-space: nowrap;
+    /* Prevents text wrapping */
 }
 
 .footer-container {
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    /* Ensures content is above watermark */
+    z-index: 1;
+    /* Ensures content is above watermark */
 }
 
 .footer-logo {
@@ -32,7 +61,7 @@
     text-decoration: none;
     color: var(--black);
     font-weight: 500;
-    }
+}
 
 .footer-link:hover {
     color: var(--dark-green);
@@ -56,7 +85,7 @@
     text-decoration: none;
     color: var(--dark-green);
     font-size: 20px;
-        box-shadow: 0 4px 16px rgba(0, 114, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 114, 0, 0.1);
 }
 
 .social-link:hover {
