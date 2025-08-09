@@ -268,10 +268,6 @@
 }
 
 @media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-
     .content-section {
         padding: 40px 20px;
     }
