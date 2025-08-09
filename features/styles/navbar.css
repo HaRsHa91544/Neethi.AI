@@ -65,7 +65,7 @@ h6 {
 }
 
 .nav-logo:hover {
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 .nav-logo .logo-img {
@@ -147,7 +147,7 @@ h6 {
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: var(--black);
+    color: rgb(100, 100, 100, 0.8);
     font-size: 12px;
     font-weight: 600;
     flex: 1;

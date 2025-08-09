@@ -59,7 +59,7 @@
 
 .footer-link {
     text-decoration: none;
-    color: var(--black);
+    color: rgb(100, 100, 100, 0.8);
     font-weight: 500;
 }
 
@@ -97,7 +97,6 @@
 .footer-copyright {
     color: #666;
     font-size: 14px;
-    border-top: 1px solid rgba(0, 114, 0, 0.1);
     padding-top: 20px;
 }
 
@@ -113,8 +112,7 @@
 }
 
 @media (max-width: 480px) {
-    .navbar {
-        top: 14px;
-        padding: 8px 20px;
+    .footer::before {
+        display: none;
     }
 }

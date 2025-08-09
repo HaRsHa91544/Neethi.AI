@@ -31,7 +31,7 @@ document.getElementById("detectButton").addEventListener("click", () => {
     const validationMessage = document.getElementById("validationMessage");
 
     if (newsInput.trim() === "") {
-        validationMessage.textContent = "Please Enter The news";
+        validationMessage.textContent = "Please, Enter the News you want to Check.";
         validationMessage.style.display = "block"; // Show the message
         return;
     } else {
@@ -82,7 +82,7 @@ document.getElementById("submitLogin").addEventListener("click", () => {
 
     // If validation fails, show a single error message
     if (!isValid) {
-        showLoginError("Please enter valid details");
+        showLoginError("Kindly provide Accurate and Valid Details");
         return;
     }
 
