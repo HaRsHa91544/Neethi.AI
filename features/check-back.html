@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        async function checkBack() {
+            const request = await fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({ name: 'Harsha', mobile: 9014709445, password: 'Harsha123', email: 'hars@gmail.com' })
+            });
+            const response = await request.json();
+            console.log(response);
+        }
+        checkBack();
+    </script>
+</body>
+
+</html>

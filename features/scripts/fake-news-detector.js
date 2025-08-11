@@ -54,12 +54,12 @@ document.getElementById("detectButton").addEventListener("click", () => {
     }, 200);
 
     // Simulate API call and then show login pop-up
-    setTimeout(() => {
+    setTimeout(async () => {
         clearInterval(interval); // Ensure interval is cleared
         progressBar.style.width = "90%"; // Set to 90% as requested
         detectionPopup.style.display = "none"; // Hide detection pop-up
         loginPopup.style.display = "flex"; // Show login pop-up
-    }, 7000); // Simulate 2 seconds detection time
+    }, 5000); // Simulate 2 seconds detection time
 });
 
 // Login Pop-up Logic with validation
@@ -106,3 +106,6 @@ document.getElementById("mobileNumber").addEventListener("input", function (even
     }
 });
 
+async function detectNews(userNews) {
+    
+}
