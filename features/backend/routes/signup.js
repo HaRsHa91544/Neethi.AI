@@ -8,21 +8,23 @@ const { JWT_SECRET } = require('../config');
 router.post('/signup', async (req, res) => {
     const name = req.body.name;
     const mobile = req.body.mobile;
-    const email = req.body.email;
-    const password = req.body.password;
-    let result = await addUser(name, mobile, email, password);
+    const pin = req.body.pin;
+    let result = await addUser(name, mobile, pin);
     res.json(result);
 });
 
-async function addUser(name, mobile, email, password) {
+async function addUser(name, mobile, pin) {
     try {
-        password = await bcrypt.hash(password, 10);
-        const [result] = await db.execute('INSERT INTO users (name, mobile, email, password_hash) VALUES (?, ?, ?, ?)', [name, mobile, email, password]);
-        const jwt_token = jwt.sign({ userId: result.insertId }, JWT_SECRET, { expiresIn: '5h' });
+        pin = await bcrypt.hash(pin, 10);
+        const [result] = await db.execute('INSERT INTO users (name, mobile, pin) VALUES (?, ?, ?)', [name, mobile, pin]);
+        const jwt_token = jwt.sign({ name, mobile }, JWT_SECRET, { expiresIn: '24h' });
         return { success: true, token: jwt_token };
     }
     catch (error) {
-        console.log(error);
+        if (error.code === 'ER_DUP_ENTRY') {
+            return { success: false };
+        }
+        return { success: false, message: 'System Failure!' }
     }
 }
 

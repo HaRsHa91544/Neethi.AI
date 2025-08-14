@@ -76,7 +76,6 @@ h6 {
 
 .nav-links {
     display: flex;
-    background-color: aqua;
     gap: 30px;
 }
 

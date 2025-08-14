@@ -74,31 +74,128 @@
                 <div id="validationMessage" class="validation-message"></div>
                 <button id="detectButton">Detect News</button>
                 <div class="disclaimer">
-                    <p>⚠️ Note: Neethi AI is Highly Accurate, but no system is perfect. If it does any mistake, <a href="">Please tell us.</a></p>
+                    <p>⚠️ Note: Neethi AI is Highly Accurate, but no system is perfect. If it does any mistake, <a
+                            href="">Please tell us.</a></p>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- Pop-up for Detection -->
-    <div id="detectionPopup" class="popup-overlay">
-        <div class="popup-content">
-            <h3>Detecting the News...</h3>
+    <!-- Initial Progress Bar Pop-up -->
+    <div id="initialProgressPopup" class="popup-overlay">
+        <div class="popup-content initial-progress-content">
+            <!-- Progress Bar at Top -->
             <div class="progress-bar-container">
-                <div class="progress-bar"></div>
+                <div class="progress-bar" id="initialProgressBar"></div>
+                <div class="progress-text" id="initialProgressText">0%</div>
             </div>
-            <p>Please Wait...</p>
+
+            <h3>Analyzing Your News</h3>
+            <p class="progress-message">Please wait while we process your request...</p>
+        </div>
+    </div>
+
+    <!-- Signup Pop-up -->
+    <div id="signupPopup" class="popup-overlay">
+        <div class="popup-content">
+            <!-- Progress Bar at Top -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="signupProgressBar"></div>
+                <div class="progress-text" id="signupProgressText">50%</div>
+            </div>
+
+            <h3>Signup to see the result</h3>
+            <div class="input-group">
+                <input type="text" id="signupName" placeholder="Name">
+                <div id="signupNameError" class="validation-message"></div>
+            </div>
+            <div class="input-group">
+                <input type="text" id="signupMobile" placeholder="Mobile Number">
+                <div id="signupMobileError" class="validation-message"></div>
+            </div>
+            <div class="input-group">
+                <input type="password" id="signupPin" placeholder="4 Digit Secret PIN" maxlength="4">
+                <div id="signupPinError" class="validation-message"></div>
+            </div>
+            <button id="signupSubmit">Submit</button>
+            <p class="auth-switch">Already have account? <a href="#" id="switchToLogin">Login</a></p>
         </div>
     </div>
 
     <!-- Login Pop-up -->
     <div id="loginPopup" class="popup-overlay">
         <div class="popup-content">
-            <h3>Login</h3>
-            <p>To know about the Result !</p>
-            <input type="text" id="userName" placeholder="Name">
-            <input type="text" id="mobileNumber" placeholder="Mobile Number">
-            <div id="loginError" class="error-message"></div>
-            <button id="submitLogin">Submit</button>
+            <!-- Progress Bar at Top -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="loginProgressBar"></div>
+                <div class="progress-text" id="loginProgressText">50%</div>
+            </div>
+
+            <h3>Login to see the result</h3>
+            <div class="input-group">
+                <input type="text" id="loginMobile" placeholder="Mobile Number">
+                <div id="loginMobileError" class="validation-message"></div>
+            </div>
+            <div class="input-group">
+                <input type="password" id="loginPin" placeholder="Secret PIN" maxlength="4">
+                <div id="loginPinError" class="validation-message"></div>
+            </div>
+            <button id="loginSubmit">Submit</button>
+            <p class="auth-switch">Don't have account? <a href="#" id="switchToSignup">Signup</a></p>
+        </div>
+    </div>
+
+    <!-- Questions Pop-up (Only for Signup) -->
+    <div id="questionsPopup" class="popup-overlay">
+        <div class="popup-content">
+            <!-- Progress Bar at Top -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="questionsProgressBar"></div>
+                <div class="progress-text" id="questionsProgressText">65%</div>
+            </div>
+
+            <h3>Just Two More Questions</h3>
+            <div class="question-group">
+                <label for="categorySelect">1. Category:</label>
+                <select id="categorySelect">
+                    <option value="">Select Category</option>
+                    <option value="politics">Politics & Government</option>
+                    <option value="education">Education & Scholarships</option>
+                    <option value="health">Health & Medicine</option>
+                    <option value="technology">Science & Technology</option>
+                    <option value="business">Business & Economy</option>
+                    <option value="sports">Sports</option>
+                    <option value="entertainment">Entertainment & Celebrities</option>
+                    <option value="environment">Environment & Climate</option>
+                    <option value="crime">Crime & Law</option>
+                    <option value="social">Social Issues</option>
+                </select>
+                <div id="categoryError" class="validation-message"></div>
+            </div>
+            <div class="question-group">
+                <label for="sourceInput">2. Last thing — where should I keep my ears open for you?</label>
+                <input type="text" id="sourceInput" placeholder="Enter your preferred news source">
+                <div id="sourceError" class="validation-message"></div>
+            </div>
+            <button id="questionsSubmit">Submit</button>
+        </div>
+    </div>
+
+    <!-- Final Processing Pop-up -->
+    <div id="finalProcessingPopup" class="popup-overlay">
+        <div class="popup-content">
+            <!-- Progress Bar at Top -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="finalProgressBar"></div>
+                <div class="progress-text" id="finalProgressText">90%</div>
+            </div>
+
+            <h3 id="processingTitle">Almost Done!</h3>
+            <div class="loading-icon">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <p id="finalMessage">Analyzing your news...</p>
+            <button id="viewResults" style="display: none;">View Results</button>
         </div>
     </div>
 
@@ -134,7 +231,6 @@
             </div>
         </div>
     </footer>
-
     <script src="scripts/navbar.js"></script>
     <script src="scripts/fake-news-detector.js"></script>
 </body>
