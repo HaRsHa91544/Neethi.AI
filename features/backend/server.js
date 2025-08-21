@@ -8,11 +8,13 @@ const checknewsRoute = require('./routes/check-news');
 const loginRoute = require('./routes/login');
 const signupRoute = require('./routes/signup');
 const checkTokenRoute = require('./routes/check-token');
+const userDetails = require('./routes/user-details');
 
 neethi.use('/', checknewsRoute);
 neethi.use('/', loginRoute);
 neethi.use('/', signupRoute);
 neethi.use('/', checkTokenRoute);
+neethi.use('/', userDetails);
 
 neethi.get('/', (req, res) => {
     res.send('Neethi Server is Live');

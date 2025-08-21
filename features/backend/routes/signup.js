@@ -9,8 +9,13 @@ router.post('/signup', async (req, res) => {
     const name = req.body.name;
     const mobile = req.body.mobile;
     const pin = req.body.pin;
-    let result = await addUser(name, mobile, pin);
-    res.json(result);
+    if (validateName(name) && validateMobile(mobile) && validatePin(pin)) {
+        let result = await addUser(name, mobile, pin);
+        res.json(result);
+    }
+    else {
+        res.json({ success: false, message: 'You have entered incorrect credentials' })
+    }
 });
 
 async function addUser(name, mobile, pin) {
@@ -26,6 +31,24 @@ async function addUser(name, mobile, pin) {
         }
         return { success: false, message: 'System Failure!' }
     }
+}
+
+function validateName(name) {
+    // Only allow letters and spaces
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    return nameRegex.test(name) && name.trim().length > 0;
+}
+
+function validateMobile(mobile) {
+    // Only allow exactly 10 digits
+    const mobileRegex = /^\d{10}$/;
+    return mobileRegex.test(mobile);
+}
+
+function validatePin(pin) {
+    // Only allow exactly 4 digits
+    const pinRegex = /^\d{4}$/;
+    return pinRegex.test(pin);
 }
 
 module.exports = router;

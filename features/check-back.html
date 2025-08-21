@@ -10,12 +10,12 @@
 <body>
     <script>
         async function checkBack() {
-            const request = await fetch('http://localhost:3000/signup', {
+            const request = await fetch('http://localhost:5678/webhook-test/84f8c6a0-c93e-43d6-b816-c6596b71a3f4', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify({ name: 'Harsha', mobile: 9014709445, password: 'Harsha123', email: 'hars@gmail.com' })
+                body: JSON.stringify({ articleId:5989967, mobile: 9849772687, news:'A girl got killed by her parents in kukatpally' })
             });
             const response = await request.json();
             console.log(response);

@@ -8,8 +8,13 @@ const { JWT_SECRET } = require('../config');
 router.post('/login', async (req, res) => {
     const mobile = req.body.mobile;
     const pin = req.body.pin;
-    const isValid = await validateUser(mobile, pin);
-    res.json(isValid);
+    if (validateMobile(mobile) && validatePin(pin)) {
+        const isValid = await validateUser(mobile, pin);
+        res.json(isValid);
+    }
+    else {
+        res.json({ success: false, message: 'You have entered incorrect credentials' })
+    }
 });
 
 async function validateUser(mobile, pin) {
@@ -33,6 +38,18 @@ async function validateUser(mobile, pin) {
         console.log(error);
         return { success: false, message: 'System Failure, Try again!' };
     }
+}
+
+function validateMobile(mobile) {
+    // Only allow exactly 10 digits
+    const mobileRegex = /^\d{10}$/;
+    return mobileRegex.test(mobile);
+}
+
+function validatePin(pin) {
+    // Only allow exactly 4 digits
+    const pinRegex = /^\d{4}$/;
+    return pinRegex.test(pin);
 }
 
 module.exports = router;

@@ -265,8 +265,10 @@ document.getElementById("detectButton").addEventListener("click", async () => {
     }
 
     isTokenValid = await checkToken();
+
     if (isTokenValid) {
         showFinalProcessingPopup();
+        checkNews(newsInput);
     }
     else {
         // Resume from where user left off or start fresh
@@ -430,6 +432,7 @@ document.getElementById("loginSubmit").addEventListener("click", async () => {
     if (isValid) {
         isValid = await loginMyAccount(mobile, pin);
         if (isValid.success) {
+            const newsInput = document.getElementById("newsInput").value;
             userFlowType = 'login';
             hideLoginPopup();
             // For login, go directly to final processing
@@ -439,19 +442,7 @@ document.getElementById("loginSubmit").addEventListener("click", async () => {
             document.getElementById("processingTitle").textContent = "Almost Done!";
             document.getElementById("finalMessage").textContent = "Analyzing your news...";
 
-            // Wait 3 seconds at 90%, then complete
-            setTimeout(() => {
-                updateProgressBar("finalProgressBar", "finalProgressText", 100);
-
-                // Change to success icon and update content
-                const loadingIcon = document.querySelector(".loading-icon");
-                loadingIcon.className = "success-icon";
-                loadingIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
-
-                document.getElementById("processingTitle").textContent = "Analysis Complete!";
-                document.getElementById("finalMessage").textContent = "Your news has been analyzed successfully.";
-                document.getElementById("viewResults").style.display = "block";
-            }, 3000);
+            checkNews(newsInput);
         }
         else {
             showValidationMessage("loginPinError", isValid.message);
@@ -460,7 +451,7 @@ document.getElementById("loginSubmit").addEventListener("click", async () => {
 });
 
 // Questions form validation and submission (only for signup)
-document.getElementById("questionsSubmit").addEventListener("click", () => {
+document.getElementById("questionsSubmit").addEventListener("click", async () => {
     const category = document.getElementById("categorySelect").value;
     const source = document.getElementById("sourceInput").value;
 
@@ -482,7 +473,9 @@ document.getElementById("questionsSubmit").addEventListener("click", () => {
         isValid = false;
     }
 
-    if (isValid) {
+    isValid = await sendQuestions(category, source);
+
+    if (isValid.success) {
         hideQuestionsPopup();
         // Show final processing popup
         showFinalProcessingPopup();
@@ -491,36 +484,15 @@ document.getElementById("questionsSubmit").addEventListener("click", () => {
         document.getElementById("processingTitle").textContent = "Almost Done!";
         document.getElementById("finalMessage").textContent = "Setting up your preferences and analyzing news...";
 
-        // Wait 3 seconds at 90%, then complete
-        setTimeout(() => {
-            updateProgressBar("finalProgressBar", "finalProgressText", 100);
-
-            // Change to success icon and update content
-            const loadingIcon = document.querySelector(".loading-icon");
-            loadingIcon.className = "success-icon";
-            loadingIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
-
-            document.getElementById("processingTitle").textContent = "Welcome to Neethi.AI!";
-            document.getElementById("finalMessage").textContent = "Your account is ready and news analysis is complete.";
-            document.getElementById("viewResults").style.display = "block";
-        }, 3000);
+        const newsInput = document.getElementById("newsInput").value;
+        checkNews(newsInput);
     }
 });
 
 // View Results button handler
-document.getElementById("viewResults").addEventListener("click", () => {
+document.getElementById("viewResults").addEventListener("click", async () => {
     hideFinalProcessingPopup();
     // Reset state after completion
-    appState = {
-        currentStep: 'initial',
-        progressPercentage: 0,
-        formData: {
-            signup: { name: '', mobile: '', pin: '' },
-            login: { mobile: '', pin: '' },
-            questions: { category: '', source: '' }
-        }
-    };
-    alert("Redirecting to results page...");
 });
 
 async function checkToken() {
@@ -581,5 +553,46 @@ async function loginMyAccount(mobile, pin) {
     return response;
 }
 
+async function checkNews(news) {
+    const articleId = Math.round((Math.random()) * 1000000);
+    const token = localStorage.getItem('neethiToken');
+    const request = await fetch('http://localhost:3000/check-news', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ articleId, token, news })
+    });
+    const response = await request.json();
+    if (!response.code) {
+        updateProgressBar("finalProgressBar", "finalProgressText", 100);
 
+        // Change to success icon and update content
+        const loadingIcon = document.querySelector(".loading-icon");
+        loadingIcon.className = "success-icon";
+        loadingIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
 
+        document.getElementById("processingTitle").textContent = "Welcome to Neethi.AI!";
+        document.getElementById("finalMessage").textContent = "Your account is ready and news analysis is complete.";
+        document.getElementById("viewResults").style.display = "block";
+    }
+    else {
+        confirm('n8n Workflow error');
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+    }
+}
+
+async function sendQuestions(category, city) {
+    const token = localStorage.getItem('neethiToken');
+    const request = await fetch('http://localhost:3000/user-details', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ token, category, city })
+    });
+    const response = await request.json();
+    return response;
+}
