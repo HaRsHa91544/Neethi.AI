@@ -41,6 +41,9 @@ let appState = {
     }
 };
 
+// Store the current news input for result display
+let currentNewsInput = '';
+
 // Improved progress bar management: text width measured and percentage label centered
 function updateProgressBar(progressBarId, progressTextId, percentage) {
     const progressBar = document.getElementById(progressBarId);
@@ -163,6 +166,17 @@ function hideFinalProcessingPopup() {
     document.getElementById("finalProcessingPopup").style.display = "none";
 }
 
+// Result popup management
+function showResultPopup() {
+    document.getElementById("resultPopup").style.display = "flex";
+}
+
+function closeResultPopup() {
+    document.getElementById("resultPopup").style.display = "none";
+    // Reset state after completion
+    appState.currentStep = 'initial';
+}
+
 // Hide all popups
 function hideAllPopups() {
     hideInitialProgressPopup();
@@ -170,6 +184,7 @@ function hideAllPopups() {
     hideLoginPopup();
     hideQuestionsPopup();
     hideFinalProcessingPopup();
+    document.getElementById("resultPopup").style.display = "none";
 }
 
 // Resume from where user left off
@@ -250,11 +265,139 @@ function startInitialProgress() {
 // Track user flow type
 let userFlowType = null; // 'signup' or 'login'
 
+// Result display function
+function displayResult(resultData) {
+    // Update user input display
+    document.getElementById('userInputDisplay').textContent = resultData.news;
+
+    // Update verdict based on result
+    // const verdictIcon = document.getElementById('verdictIcon');
+    const verdictTitle = document.getElementById('verdictTitle');
+    // const verdictSummary = document.getElementById('verdictSummary');
+    let isFake;
+    // Determine verdict type and set appropriate styles
+    let verdictType, iconClass, titleClass, summaryText;
+
+    if (resultData.verdict.toLowerCase() === 'real') {
+        isFake = false;
+        verdictType = 'real';
+        iconClass = 'fas fa-check-circle';
+        titleClass = 'real';
+        summaryText = 'This information appears to be factual and has been verified through multiple trusted sources.';
+    } else if (resultData.verdict.toLowerCase() === 'fake') {
+        isFake = true;
+        verdictType = 'fake';
+        iconClass = 'fas fa-times-circle';
+        titleClass = 'fake';
+        summaryText = 'This claim appears to be false and contradicts established facts from reliable sources.';
+    } else {
+        verdictType = 'uncertain';
+        iconClass = 'fas fa-question-circle';
+        titleClass = 'uncertain';
+        summaryText = 'Limited information available. The claim requires additional verification from multiple sources.';
+    }
+
+    // verdictIcon.className = `verdict-icon ${verdictType}`;
+    // verdictIcon.innerHTML = `<i class="${iconClass}"></i>`;
+    verdictTitle.className = `verdict-title ${titleClass}`;
+    verdictTitle.textContent = resultData.verdict === 'Real' ? 'Real News' :
+        resultData.verdict === 'Fake' ? 'Fake News' : 'Needs Verification';
+    // verdictSummary.textContent = summaryText;
+
+    // Update score
+    document.getElementById('scoreValue').textContent = resultData.score + '%';
+
+    // Update score description based on score
+    const score = parseInt(resultData.score);
+    let scoreDescription;
+    // if (score >= 80) {
+    //     scoreDescription = 'High confidence based on source reliability and cross-verification';
+    // } else if (score >= 60) {
+    //     scoreDescription = 'Moderate confidence - some verification found but requires caution';
+    // } else if (score >= 40) {
+    //     scoreDescription = 'Low confidence - limited supporting evidence available';
+    // } else {
+    //     scoreDescription = 'Very low credibility with no supporting evidence from reliable sources';
+    // }
+    // document.getElementById('scoreDescription').textContent = scoreDescription;
+
+
+    function setScore(targetPercent, isFake) {
+        const circle = document.querySelector('.progress-ring-fill');
+        const radius = 60;
+        const circumference = 2 * Math.PI * radius;
+
+        let current = 0; // start from 0
+        const step = targetPercent > 60 ? 2 : 1; // faster for high scores
+
+        circle.style.strokeDasharray = circumference;
+
+        // apply gradient color (red for fake / green for real)
+        circle.setAttribute("stroke", isFake ? "url(#gradientStrokeRed)" : "url(#gradientStroke)");
+
+        const scoreValue = document.getElementById("scoreValue");
+
+        function update() {
+            const offset = circumference - (current / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+            scoreValue.innerText = current + "%";
+
+            if (current < targetPercent) {
+                current += step;
+                requestAnimationFrame(update);
+            }
+        }
+
+        update();
+    }
+
+
+    // verdict box color update
+    function setVerdict(verdict) {
+        const verdictBox = document.getElementById("verdictBox");
+        verdictBox.classList.remove("fake");
+        if (verdict.toLowerCase() === "fake") {
+            verdictBox.classList.add("fake");
+            document.getElementById("verdictTitle").innerText = "⚠️ Fake News";
+        } else {
+            document.getElementById("verdictTitle").innerText = "✅ Real News";
+        }
+    }
+
+    setVerdict(resultData.verdict);
+    setScore(resultData.score, isFake);
+
+    // Update sources
+    const sourcesList = document.getElementById('sourcesList');
+    if (!resultData.sources || resultData.sources.length === 0) {
+        sourcesList.innerHTML = '<div class="no-sources">No verified sources found for this claim.</div>';
+    } else {
+        sourcesList.innerHTML = resultData.sources.map(source => `
+            <div class="source-item">
+                <div class="source-header">
+                    <div class="source-name">${source.name}</div>
+                    <a href="${source.link}" class="source-link" target="_blank">
+                        View Source <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div class="source-description">${source.desc}</div>
+            </div>
+        `).join('');
+    }
+
+    // Show result popup
+    showResultPopup();
+}
+
 // Main detection flow
 document.getElementById("detectButton").addEventListener("click", async () => {
     const newsInput = document.getElementById("newsInput").value;
     const validationMessage = document.getElementById("validationMessage");
     let isTokenValid;
+
+    // Store current news input
+    currentNewsInput = newsInput;
+
     // Validate news input (preserved validation)
     if (newsInput.trim() === "") {
         validationMessage.textContent = "Please, Enter the News you want to Check.";
@@ -304,6 +447,12 @@ document.getElementById("questionsPopup").addEventListener("click", (e) => {
 document.getElementById("finalProcessingPopup").addEventListener("click", (e) => {
     if (e.target === e.currentTarget) {
         hideFinalProcessingPopup();
+    }
+});
+
+document.getElementById("resultPopup").addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) {
+        closeResultPopup();
     }
 });
 
@@ -572,9 +721,18 @@ async function checkNews(news) {
         loadingIcon.className = "success-icon";
         loadingIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
 
-        document.getElementById("processingTitle").textContent = "Welcome to Neethi.AI!";
-        document.getElementById("finalMessage").textContent = "Your account is ready and news analysis is complete.";
+        document.getElementById("processingTitle").textContent = "Analysis Complete!";
+        document.getElementById("finalMessage").textContent = "Your news analysis is ready.";
         document.getElementById("viewResults").style.display = "block";
+
+        // Store the result data for display
+        window.resultData = response;
+
+        // Update the view results button to show the result popup
+        document.getElementById("viewResults").onclick = function () {
+            hideFinalProcessingPopup();
+            displayResult(response);
+        };
     }
     else {
         confirm('n8n Workflow error');

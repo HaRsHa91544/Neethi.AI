@@ -14,7 +14,7 @@ router.post('/check-news', async (req, res) => {
         const decoded = jwt.verify(token, JWT_SECRET);
         const mobile = decoded.mobile;
 
-        const request = await fetch('http://localhost:5678/webhook-test/91a67ec4-3dc4-4c26-b842-650aaa555522', {
+        const request = await fetch('http://localhost:5678/webhook-test/84f8c6a0-c93e-43d6-b816-c6596b71a3f4', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
