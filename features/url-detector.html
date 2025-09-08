@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neethi.AI - URL Detector</title>
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/url-detector.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Desktop Navbar -->
+    <nav class="navbar desktop-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="img/logo.png" alt="Neethi.AI Logo" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+            </div>
+            <div class="nav-hamburger">
+                <i class="fas fa-bars hamburger-icon"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="history.html" class="mobile-nav-item">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+    </nav>
+
+    <!-- Slide-in Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <h3>Menu</h3>
+            <i class="fas fa-times close-drawer" id="closeDrawer"></i>
+        </div>
+        <div class="drawer-content">
+            <a href="about-us.html" class="drawer-link">About Us</a>
+            <a href="how-it-works.html" class="drawer-link">How It Works</a>
+            <a href="privacy-policy.html" class="drawer-link">Privacy Policy</a>
+            <a href="terms-of-use.html" class="drawer-link">Terms of Use</a>
+            <a href="need-help.html" class="drawer-link">Need Help?</a>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <h1 class="hero-title">Detect Fake or Malicious URLs</h1>
+                <p class="hero-subtitle">Ensure your online safety by verifying links before you click.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>Enter URL for Detection</h2>
+                <div class="input-wrapper">
+                    <input type="text" id="urlInput" placeholder="Paste URL here">
+                    <button id="pasteButton" class="paste-button">Paste</button>
+                </div>
+                <div id="validationMessage" class="validation-message"></div>
+                <button id="detectUrlButton">Detect URL</button>
+                <div class="disclaimer">
+                    <p>⚠️ Always double-check links in emails and messages. Scammers mimic trusted websites.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="img/logo.png" alt="Neethi.AI Logo" class="footer-logo-img">
+            </div>
+            <div class="footer-links">
+                <a href="about-us.html" class="footer-link">About Us</a>
+                <a href="how-it-works.html" class="footer-link">How It Works</a>
+                <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                <a href="terms-of-use.html" class="footer-link">Terms of Use</a>
+                <a href="need-help.html" class="footer-link">Need Help?</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Neethi.AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/navbar.js"></script>
+    <script src="scripts/url-detector.js"></script>
+</body>
+
+</html>
+
