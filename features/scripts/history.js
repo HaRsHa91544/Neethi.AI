@@ -1,83 +1,38 @@
-// Sample news data for demonstration
-const newsHistory = [
-    {
-        id: 1,
-        title: "Scientists Discover New Species of Deep-Sea Fish",
-        sources: ["India Today", "NDTV"],
-        isReal: true,
-        confidence: 94,
-        date: "2024-01-15",
-        timestamp: "2:30 PM"
-    },
-    {
-        id: 2,
-        title: "Local Man Claims to Have Invented Time Travel Machine",
-        sources: ["The Economic Times", "Livemint"],
-        isReal: false,
-        confidence: 87,
-        date: "2024-01-14",
-        timestamp: "11:45 AM"
-    },
-    {
-        id: 3,
-        title: "New Renewable Energy Technology Shows Promise",
-        sources: ["The Hindu", "Indian Express"],
-        isReal: true,
-        confidence: 91,
-        date: "2024-01-13",
-        timestamp: "9:15 AM"
-    },
-    {
-        id: 4,
-        title: "Aliens Land in Central Park, Demand Pizza",
-        sources: ["The Times of India", "Hindustan Times"],
-        isReal: false,
-        confidence: 96,
-        date: "2024-01-12",
-        timestamp: "6:20 PM"
-    },
-    {
-        id: 5,
-        title: "Global Climate Summit Reaches Historic Agreement",
-        sources: ["The Guardian", "BBC News"],
-        isReal: true,
-        confidence: 89,
-        date: "2024-01-11",
-        timestamp: "4:45 PM"
-    },
-    {
-        id: 6,
-        title: "Smartphone App Claims to Read Minds",
-        sources: ["The Verge", "TechCrunch"], isReal: false,
-        confidence: 92,
-        date: "2024-01-10",
-        timestamp: "1:30 PM"
-    }
-];
-
 // Function to create a news card element
 function createNewsCard(news) {
     const card = document.createElement('div');
     card.className = 'news-card';
 
-    const tagClass = news.isReal ? 'real' : 'fake';
-    const tagText = news.isReal ? 'Real News' : 'Fake News';
+    const tagClass = news.verdict == 'Real' ? 'real' : 'fake';
+    const tagText = news.verdict == 'Real' ? 'Real News' : 'Fake News';
+    const sources = news.sources.split(',');
+    let [date, time] = news.time.split('T');
+    time = time.substr(0, 5);
+    let [hour, minute] = time.split(":");
+    let date12 = new Date();
+    date12.setHours(hour, minute);
+
+    let time12 = date12.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true
+    });
 
     card.innerHTML = `
         <div class="news-card-header">
             <span class="news-tag ${tagClass}">${tagText}</span>
-            <span class="news-date">${news.date} • ${news.timestamp}</span>
+            <span class="news-date">${date.split('-').reverse().join('-')} • ${time12}</span>
         </div>
         <div class="news-content">
-            <h3 class="news-title">${news.title}</h3>
+            <h3 class="news-title">${news.news}</h3>
             <div class="news-sources">
-                ${news.sources.map(source => `<span class="news-source-item">${source}</span>`).join('')}
+                ${sources.map(source => `<span class="news-source-item">${source}</span>`).join('')}
             </div>
         </div>
         <div class="news-footer">
             <div class="confidence-score">
                 <span class="confidence-label">Confidence:</span>
-                <span class="confidence-value">${news.confidence}%</span>
+                <span class="confidence-value">${Math.round(Number(news.score))}%</span>
             </div>
             <div class="news-actions">
                 <button class="action-btn share" onclick="shareNews(${news.id})" title="Share">
@@ -111,10 +66,21 @@ function createEmptyState() {
 }
 
 // Function to render news history
-function renderNewsHistory() {
-    const container = document.querySelector('.container');
+async function renderNewsHistory() {
+    const token = localStorage.getItem('neethiToken');
+    const request = await fetch('http://localhost:3000/history', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ token })
+    });
+    const response = await request.json();
+    const newsHistory = response.rows;
+    console.log(newsHistory);
 
-    if (newsHistory.length === 0) {
+    const container = document.querySelector('.container');
+    if (!response.sucesss) {
         container.appendChild(createEmptyState());
     } else {
         newsHistory.forEach(news => {

@@ -9,7 +9,9 @@ const loginRoute = require('./routes/login');
 const signupRoute = require('./routes/signup');
 const checkTokenRoute = require('./routes/check-token');
 const userDetails = require('./routes/user-details');
+const history = require('./routes/history');
 
+neethi.use('/', history);
 neethi.use('/', checknewsRoute);
 neethi.use('/', loginRoute);
 neethi.use('/', signupRoute);

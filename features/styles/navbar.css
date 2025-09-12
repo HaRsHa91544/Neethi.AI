@@ -1,3 +1,10 @@
+@font-face {
+    src: url('../../Ranade-Bold.otf');
+    font-style: normal;
+    font-display: swap;
+    font-family: 'Ranade';
+}
+
 /* CSS Reset and Base Styles */
 * {
     margin: 0;
@@ -9,7 +16,7 @@
 }
 
 :root {
-    --dark-green: #00844f;
+    --dark-green: #00653d;
     --medium-green: #00a251;
     --light-green: #67ffb0;
     --white: #FFFFFF;
@@ -32,8 +39,8 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
+    font-family: 'Ranade', sans-serif;
+    font-weight: 700;
 }
 
 /* Desktop Navbar Styles */
