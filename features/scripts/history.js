@@ -7,12 +7,14 @@ function createNewsCard(news) {
     const tagText = news.verdict == 'Real' ? 'Real News' : 'Fake News';
     const sources = news.sources.split(',');
     let [date, time] = news.time.split('T');
+    console.log(news.time)
     time = time.substr(0, 5);
     let [hour, minute] = time.split(":");
     let date12 = new Date();
     date12.setHours(hour, minute);
 
-    let time12 = date12.toLocaleString("en-US", {
+    console.log(date12);
+    let time12 = date12.toLocaleString("en-IN", {
         hour: "numeric",
         minute: "numeric",
         hour12: true
@@ -77,10 +79,9 @@ async function renderNewsHistory() {
     });
     const response = await request.json();
     const newsHistory = response.rows;
-    console.log(newsHistory);
 
     const container = document.querySelector('.container');
-    if (!response.sucesss) {
+    if (response.success === false) {
         container.appendChild(createEmptyState());
     } else {
         newsHistory.forEach(news => {

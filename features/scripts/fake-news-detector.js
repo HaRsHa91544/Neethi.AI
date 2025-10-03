@@ -159,11 +159,28 @@ function hideQuestionsPopup() {
 function showFinalProcessingPopup() {
     document.getElementById("finalProcessingPopup").style.display = "flex";
     updateProgressBar("finalProgressBar", "finalProgressText", 90);
+    const loadingIcon = document.querySelector(".success-icon");
+    if (loadingIcon) {
+        loadingIcon.className = "loading-icon";
+        loadingIcon.innerHTML = '<i class="fas fa-spinner"></i>';
+    }
+    document.getElementById("processingTitle").textContent = "Almost Done!";
+    document.getElementById("finalMessage").textContent = "Analyzing your news...";
+    document.getElementById("viewResults").style.display = "none";
     appState.currentStep = 'final';
 }
 
 function hideFinalProcessingPopup() {
     document.getElementById("finalProcessingPopup").style.display = "none";
+}
+
+function showNotNewsPopup() {
+    document.getElementById("notNewsPopup").style.display = "flex";
+}
+
+function hideNotNewsPopup() {
+    document.getElementById("notNewsPopup").style.display = "none";
+    appState.currentStep = 'initial';
 }
 
 // Result popup management
@@ -307,20 +324,6 @@ function displayResult(resultData) {
     // Update score
     document.getElementById('scoreValue').textContent = resultData.score + '%';
 
-    // Update score description based on score
-    const score = parseInt(resultData.score);
-    let scoreDescription;
-    // if (score >= 80) {
-    //     scoreDescription = 'High confidence based on source reliability and cross-verification';
-    // } else if (score >= 60) {
-    //     scoreDescription = 'Moderate confidence - some verification found but requires caution';
-    // } else if (score >= 40) {
-    //     scoreDescription = 'Low confidence - limited supporting evidence available';
-    // } else {
-    //     scoreDescription = 'Very low credibility with no supporting evidence from reliable sources';
-    // }
-    // document.getElementById('scoreDescription').textContent = scoreDescription;
-
 
     function setScore(targetPercent, isFake) {
         const circle = document.querySelector('.progress-ring-fill');
@@ -389,8 +392,36 @@ function displayResult(resultData) {
     showResultPopup();
 }
 
+// Reset result popup before each new detection
+function resetResultPopup() {
+    // Hide popup
+    document.getElementById("resultPopup").style.display = "none";
+
+    // Clear user input display
+    document.getElementById("userInputDisplay").textContent = "";
+
+    // Clear verdict
+    document.getElementById("verdictTitle").textContent = "";
+    document.getElementById("verdictBox").className = "verdict-box";
+
+    // Reset score circle
+    const progressCircle = document.querySelector(".progress-ring-fill");
+    if (progressCircle) {
+        const radius = progressCircle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+        progressCircle.style.strokeDashoffset = circumference; // reset to 0%
+    }
+    document.getElementById("scoreValue").textContent = "0%";
+
+    // Clear sources list
+    document.getElementById("sourcesList").innerHTML = "";
+}
+
+
 // Main detection flow
 document.getElementById("detectButton").addEventListener("click", async () => {
+    resetResultPopup();
     const newsInput = document.getElementById("newsInput").value;
     const validationMessage = document.getElementById("validationMessage");
     let isTokenValid;
@@ -410,6 +441,7 @@ document.getElementById("detectButton").addEventListener("click", async () => {
     isTokenValid = await checkToken();
 
     if (isTokenValid) {
+        console.log('heerere');
         showFinalProcessingPopup();
         checkNews(newsInput);
     }
@@ -420,39 +452,10 @@ document.getElementById("detectButton").addEventListener("click", async () => {
 });
 
 // Overlay click handlers to hide popups
-document.getElementById("initialProgressPopup").addEventListener("click", (e) => {
-    if (e.target === e.currentTarget) {
-        hideInitialProgressPopup();
-    }
-});
-
-document.getElementById("signupPopup").addEventListener("click", (e) => {
-    if (e.target === e.currentTarget) {
-        hideSignupPopup();
-    }
-});
-
-document.getElementById("loginPopup").addEventListener("click", (e) => {
-    if (e.target === e.currentTarget) {
-        hideLoginPopup();
-    }
-});
-
-document.getElementById("questionsPopup").addEventListener("click", (e) => {
-    if (e.target === e.currentTarget) {
-        hideQuestionsPopup();
-    }
-});
-
-document.getElementById("finalProcessingPopup").addEventListener("click", (e) => {
-    if (e.target === e.currentTarget) {
-        hideFinalProcessingPopup();
-    }
-});
-
 document.getElementById("resultPopup").addEventListener("click", (e) => {
     if (e.target === e.currentTarget) {
         closeResultPopup();
+        appState.currentStep = 'initial';
     }
 });
 
@@ -713,6 +716,7 @@ async function checkNews(news) {
         body: JSON.stringify({ articleId, token, news })
     });
     const response = await request.json();
+    console.log(response);
     if (!response.code) {
         updateProgressBar("finalProgressBar", "finalProgressText", 100);
 
@@ -733,6 +737,10 @@ async function checkNews(news) {
             hideFinalProcessingPopup();
             displayResult(response);
         };
+    }
+    else if (response.code == 69) {
+        hideFinalProcessingPopup();
+        showNotNewsPopup();
     }
     else {
         confirm('n8n Workflow error');

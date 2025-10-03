@@ -10,13 +10,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
     -webkit-tap-highlight-color: transparent;
     transition: all 0.3s ease-in-out;
+    font-family: 'Poppins', sans-serif;
 }
 
 :root {
-    --dark-green: #00653d;
+    --dark-green: #005030;
     --medium-green: #00a251;
     --light-green: #67ffb0;
     --white: #FFFFFF;
@@ -24,6 +24,11 @@
     --primary-gradient: linear-gradient(150deg, var(--light-green), var(--dark-green));
     --accent-gradient: linear-gradient(150deg, var(--dark-green), var(--medium-green), var(--light-green));
     --footer-gradient: linear-gradient(135deg, #00af3776, #FFFFFF);
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--dark-green) var(--white);
 }
 
 body {

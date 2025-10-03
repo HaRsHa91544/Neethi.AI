@@ -1,6 +1,6 @@
 /* My Profile Page Styles */
 .profile-section {
-    padding: 80px 20px;
+    padding: 160px 20px;
     background: var(--white);
     min-height: 70vh;
     display: flex;
@@ -131,6 +131,186 @@
     box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
 }
 
+/* New Styles for Modals and Success Message */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 255, 250, 0.95));
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container.visible {
+    opacity: 1;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: bounceIn 0.6s ease-out;
+}
+
+.logout-icon {
+    color: #6c757d;
+}
+
+.delete-icon {
+    color: #dc3545;
+}
+
+.modal-content h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--dark-green);
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.warning-text {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.modal-confirm-btn,
+.modal-cancel-btn,
+.modal-delete-btn {
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.modal-confirm-btn {
+    background: var(--medium-green);
+    color: var(--white);
+    box-shadow: 0 5px 15px rgba(0, 162, 81, 0.2);
+}
+
+.modal-confirm-btn:hover {
+    background: #007d4b;
+    box-shadow: 0 8px 20px rgba(0, 162, 81, 0.3);
+}
+
+.modal-cancel-btn {
+    background: #e9ecef;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+
+.modal-cancel-btn:hover {
+    background: #ced4da;
+    color: #343a40;
+}
+
+.modal-delete-btn {
+    background: #dc3545;
+    color: var(--white);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
+}
+
+.modal-delete-btn:hover {
+    background: #c82333;
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+}
+
+.success-message {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 255, 254, 0.9));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 162, 81, 0.2);
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.success-message.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.success-icon {
+    color: var(--medium-green);
+    font-size: 1.5rem;
+}
+
+.success-message p {
+    color: var(--dark-green);
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Utility Class */
+.hidden {
+    display: none;
+}
+
+.success-message.hidden {
+    display: none;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .profile-section {
@@ -166,6 +346,22 @@
         padding: 12px 20px;
         font-size: 0.95rem;
     }
+
+    .modal-container {
+        padding: 25px;
+    }
+
+    .modal-icon {
+        font-size: 2.5rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 480px) {
@@ -199,6 +395,32 @@
         font-size: 0.9rem;
         border-radius: 10px;
     }
+
+    .modal-container {
+        padding: 20px;
+    }
+
+    .modal-content p {
+        font-size: 0.9rem;
+    }
+
+    .modal-confirm-btn,
+    .modal-cancel-btn,
+    .modal-delete-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .success-message {
+        padding: 12px 20px;
+        gap: 10px;
+    }
+
+    .success-icon {
+        font-size: 1.2rem;
+    }
+
+    .success-message p {
+        font-size: 0.9rem;
+    }
 }
-
-

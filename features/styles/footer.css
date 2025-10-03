@@ -13,11 +13,11 @@
     content: "Neethi.AI";
     /* Watermark text */
     position: absolute;
-    top: 250px;
+    top: 240px;
     /* Adjust position as needed */
     left: 50%;
     transform: translateX(-50%);
-    font-size: 15vw;
+    font-size: 20vw;
     /* Large, responsive font size */
     font-weight: 600;
     color: rgba(0, 0, 0, 0.05);

@@ -68,32 +68,33 @@
                     <div class="profile-avatar">
                         <i class="fas fa-user-circle"></i>
                     </div>
-                    
+
                     <div class="profile-form">
                         <div class="input-group">
                             <label for="userName">Name</label>
-                            <input type="text" id="userName" placeholder="Enter your full name" value="John Doe">
+                            <input type="text" id="userName" placeholder="Enter your full name" value="">
                             <div id="userNameError" class="validation-message"></div>
                         </div>
-                        
+
                         <div class="input-group">
                             <label for="userEmail">Email</label>
-                            <input type="email" id="userEmail" placeholder="Enter your email address" value="john.doe@example.com">
+                            <input type="email" id="userEmail" placeholder="Enter your email address"
+                                value="">
                             <div id="userEmailError" class="validation-message"></div>
                         </div>
-                        
+
                         <div class="profile-actions">
                             <button class="save-btn" id="saveChangesBtn">
                                 <i class="fas fa-save"></i>
                                 Save Changes
                             </button>
-                            
-                            <button class="logout-btn">
+
+                            <button class="logout-btn" id="logoutBtn">
                                 <i class="fas fa-sign-out-alt"></i>
                                 Logout
                             </button>
-                            
-                            <button class="delete-btn">
+
+                            <button class="delete-btn" id="deleteBtn">
                                 <i class="fas fa-trash-alt"></i>
                                 Delete Account
                             </button>
@@ -102,9 +103,41 @@
                 </div>
             </div>
         </section>
+
+        <div id="modalOverlay" class="modal-overlay"></div>
+
+        <div id="logoutModal" class="modal-container hidden">
+            <div class="modal-content">
+                <i class="fas fa-sign-out-alt modal-icon logout-icon"></i>
+                <h2>Confirm Logout</h2>
+                <p>Are you sure you want to log out of your account?</p>
+                <div class="modal-actions">
+                    <button id="confirmLogout" class="modal-confirm-btn">Yes, Logout</button>
+                    <button id="cancelLogout" class="modal-cancel-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="deleteModal" class="modal-container hidden">
+            <div class="modal-content">
+                <i class="fas fa-exclamation-triangle modal-icon delete-icon"></i>
+                <h2>Delete Account</h2>
+                <p class="warning-text">This action is permanent and cannot be undone.</p>
+                <p>Are you absolutely sure you want to delete your account?</p>
+                <div class="modal-actions">
+                    <button id="confirmDelete" class="modal-delete-btn">Yes, Delete</button>
+                    <button id="cancelDelete" class="modal-cancel-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="successMessage" class="success-message hidden">
+            <i class="fas fa-check-circle success-icon"></i>
+            <p>Profile updated successfully!</p>
+        </div>
+
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
@@ -141,4 +174,3 @@
 </body>
 
 </html>
-

@@ -33,7 +33,8 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    justify-content:center;
+    grid-template-columns: repeat(3, 400px);
     gap: 30px;
 }
 

@@ -166,7 +166,7 @@
             </div>
             <div class="question-group">
                 <label for="sourceInput">2. Last thing – Where are you from (City)?</label>
-                <input type="text" id="sourceInput" placeholder="Enter your preferred news source">
+                <input type="text" id="sourceInput" placeholder="Enter your City">
                 <div id="sourceError" class="validation-message"></div>
             </div>
             <button id="questionsSubmit">Submit</button>
@@ -188,6 +188,20 @@
             <button id="viewResults" style="display: none;">View Results</button>
         </div>
     </div>
+
+    <div id="notNewsPopup" class="popup-overlay">
+        <div class="popup-content not-news">
+            <div class="icon-circle">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <h3 class="popup-title">Looks Like you haven't given about News</h3>
+            <p class="popup-text">
+                This text doesn’t seem to be a news claim.<br>
+            </p>
+            <a href="fake-news-detector.html"><button class="popup-btn" id="closeNotNews">Detect Again!</button></a>
+        </div>
+    </div>
+
 
     <!-- Result Popup -->
     <div id="resultPopup" class="popup-overlay">

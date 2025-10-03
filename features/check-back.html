@@ -10,12 +10,12 @@
 <body>
     <script>
         async function checkBack() {
-            const request = await fetch('http://localhost:5678/webhook-test/84f8c6a0-c93e-43d6-b816-c6596b71a3f4', {
+            const request = await fetch('http://localhost:5678/webhook/776e35c1-2e51-431e-bca1-36960f702fce', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify({ articleId:5989967, mobile: 9849772687, news:'Trump was died' })
+                body: JSON.stringify({ urlId: 89893934, mobile: 9849772687, url:'https://starterwave.xyz' })
             });
             const response = await request.json();
             console.log(response);

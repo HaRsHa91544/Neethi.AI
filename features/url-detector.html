@@ -63,27 +63,202 @@
     <main>
         <section class="hero">
             <div class="hero-container">
-                <h1 class="hero-title">Detect Fake or Malicious URLs</h1>
+                <h1 class="hero-title">Detect Fake Links</h1>
                 <p class="hero-subtitle">Ensure your online safety by verifying links before you click.</p>
             </div>
         </section>
 
         <section class="content-section">
             <div class="container">
-                <h2>Enter URL for Detection</h2>
+                <h2>Enter Link for Detection</h2>
                 <div class="input-wrapper">
-                    <input type="text" id="urlInput" placeholder="Paste URL here">
+                    <input type="text" id="urlInput" placeholder="Paste Link here">
                     <button id="pasteButton" class="paste-button">Paste</button>
                 </div>
                 <div id="validationMessage" class="validation-message"></div>
-                <button id="detectUrlButton">Detect URL</button>
+                <button id="detectUrlButton">Detect Link</button>
                 <div class="disclaimer">
                     <p>⚠️ Always double-check links in emails and messages. Scammers mimic trusted websites.</p>
                 </div>
             </div>
         </section>
     </main>
+    <!-- Initial Progress Bar Pop-up -->
+    <div id="initialProgressPopup" class="popup-overlay">
+        <div class="popup-content initial-progress-content">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="initialProgressBar"></div>
+                <div class="progress-text" id="initialProgressText">0%</div>
+            </div>
+            <h3>Analyzing Your URL</h3>
+            <p class="progress-message">Please wait while we process your request...</p>
+        </div>
+    </div>
 
+    <!-- Signup Pop-up -->
+    <div id="signupPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="signupProgressBar"></div>
+                <div class="progress-text" id="signupProgressText">50%</div>
+            </div>
+            <h3>Signup to see the result</h3>
+            <div class="input-group">
+                <input type="text" id="signupName" placeholder="Name">
+                <div id="signupNameError" class="validation-message"></div>
+            </div>
+            <div class="input-group">
+                <input type="text" id="signupMobile" placeholder="Mobile Number">
+                <div id="signupMobileError" class="validation-message"></div>
+            </div>
+            <div class="input-group">
+                <input type="password" id="signupPin" placeholder="4 Digit Secret PIN" maxlength="4">
+                <div id="signupPinError" class="validation-message"></div>
+            </div>
+            <button id="signupSubmit">Submit</button>
+            <p class="auth-switch">Already have account? <a href="#" id="switchToLogin">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Login Pop-up -->
+    <div id="loginPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="loginProgressBar"></div>
+                <div class="progress-text" id="loginProgressText">50%</div>
+            </div>
+            <h3>Login to see the result</h3>
+            <div class="input-group">
+                <input type="text" id="loginMobile" placeholder="Mobile Number">
+                <div id="loginMobileError" class="validation-message"></div>
+            </div>
+            <div class="input-group">
+                <input type="password" id="loginPin" placeholder="Secret PIN" maxlength="4">
+                <div id="loginPinError" class="validation-message"></div>
+            </div>
+            <button id="loginSubmit">Submit</button>
+            <p class="auth-switch">Don't have account? <a href="#" id="switchToSignup">Signup</a></p>
+        </div>
+    </div>
+
+    <!-- Questions Pop-up -->
+    <div id="questionsPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="questionsProgressBar"></div>
+                <div class="progress-text" id="questionsProgressText">65%</div>
+            </div>
+            <h3>Just Two More Questions</h3>
+            <div class="question-group">
+                <label for="categorySelect">1. Share your interests:</label>
+                <select id="categorySelect">
+                    <option value="">Select Category</option>
+                    <option value="politics">Politics & Government</option>
+                    <option value="education">Education & Scholarships</option>
+                    <option value="health">Health & Medicine</option>
+                    <option value="technology">Science & Technology</option>
+                    <option value="business">Business & Economy</option>
+                    <option value="sports">Sports</option>
+                    <option value="entertainment">Entertainment & Celebrities</option>
+                    <option value="environment">Environment & Climate</option>
+                    <option value="crime">Crime & Law</option>
+                    <option value="social">Social Issues</option>
+                </select>
+                <div id="categoryError" class="validation-message"></div>
+            </div>
+            <div class="question-group">
+                <label for="sourceInput">2. Last thing – Where are you from (City)?</label>
+                <input type="text" id="sourceInput" placeholder="Enter your City">
+                <div id="sourceError" class="validation-message"></div>
+            </div>
+            <button id="questionsSubmit">Submit</button>
+        </div>
+    </div>
+
+    <!-- Final Processing Pop-up -->
+    <div id="finalProcessingPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="finalProgressBar"></div>
+                <div class="progress-text" id="finalProgressText">90%</div>
+            </div>
+            <h3 id="processingTitle">Almost Done!</h3>
+            <div class="loading-icon">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <p id="finalMessage">Analyzing your URL...</p>
+            <button id="viewResults" style="display: none;">View Results</button>
+        </div>
+    </div>
+
+    <!-- Result Popup -->
+    <div id="resultPopup" class="popup-overlay">
+        <div class="result-popup">
+
+            <!-- Header -->
+            <div class="popup-header">
+                <h2>Verification Result</h2>
+                <button class="close-btn" onclick="closeResultPopup()">&times;</button>
+            </div>
+
+            <!-- News -->
+            <div class="news-box">
+                <span class="label">URL Checked</span>
+                <p id="userInputDisplay" class="news-text"></p>
+            </div>
+
+            <!-- Verdict + Score -->
+            <div class="verdict-score">
+
+                <!-- Verdict -->
+                <div id="verdictBox" class="verdict-box">
+                    <div class="verdict-badge">Verdict</div>
+                    <h3 id="verdictTitle"></h3>
+                </div>
+
+                <!-- Score -->
+                <div class="score-box">
+                    <div class="score-circle">
+                        <svg class="progress-ring" width="140" height="140">
+                            <defs>
+                                <linearGradient id="gradientStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#67ffb0" />
+                                    <stop offset="100%" stop-color="#005634" />
+                                </linearGradient>
+                                <linearGradient id="gradientStrokeRed" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#c0392b" />
+                                    <stop offset="100%" stop-color="#e74c3c" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="progress-ring-bg" cx="70" cy="70" r="60" />
+                            <circle class="progress-ring-fill" cx="70" cy="70" r="60" />
+                        </svg>
+                        <span id="scoreValue" class="score-value">0%</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sources -->
+            <div class="sources-box">
+                <h4>Trusted Sources</h4>
+                <div id="sourcesList" class="sources-list"></div>
+            </div>
+
+        </div>
+    </div>
+    <div id="notNewsPopup" class="popup-overlay">
+        <div class="popup-content not-news">
+            <div class="icon-circle">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <h3 class="popup-title">Looks Like you haven't given a Link!</h3>
+            <p class="popup-text">
+                This text doesn’t seem to be a URL or Link.<br>
+            </p>
+            <a href="url-detector.html"><button class="popup-btn" id="closeNotNews">Detect Again!</button></a>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
@@ -122,4 +297,3 @@
 </body>
 
 </html>
-

@@ -20,8 +20,10 @@ router.post('/history', async (req, res) => {
     }
     try {
         const [rows] = await db.execute('SELECT submissions.*, GROUP_CONCAT(sources.name) as "sources" FROM submissions JOIN sources ON submissions.articleId=sources.articleId WHERE mobile=? GROUP BY articleId;', [mobile]);
-        if (rows.length == 0) res.json({ success: false, message: 'Not found' });
-        else {
+        if (rows.length == 0) {
+            res.json({ success: false, message: 'Not found' });
+            return;
+        } else {
             res.json({ success: true, rows });
         }
     }
