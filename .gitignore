@@ -1,2 +1,3 @@
 features/backend/.env
-features/backend/node_modules
+features/backend/node_modules/
+final.pdf
